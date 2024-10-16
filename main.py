@@ -21,11 +21,11 @@ class MyApp(App):
         self.title = "Nada Petualang Cilik"
         self.icon = "public/img/icon.png"
         
-        self.background_sound = SoundLoader.load("public/sound/bg1.mp3")
-        if self.background_sound:
-            self.background_sound.loop = True
-            self.background_sound.volume = 0.5
-            self.background_sound.play()
+        # self.background_sound = SoundLoader.load("public/sound/bg1.mp3")
+        # if self.background_sound:
+        #     self.background_sound.loop = True
+        #     self.background_sound.volume = 0.5
+        #     self.background_sound.play()
       
     def build(self):
         self.screen_manager = ScreenManager(transition=FadeTransition(duration=0.5))

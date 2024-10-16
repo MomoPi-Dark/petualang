@@ -16,10 +16,10 @@ class ChooseGameScreen(Screen):
         
         back_button = BackButton(
             app=app,
+            size_original=250,
             destination="previous",
             source="public/img/v2/button/back.png",
             pos_hint={'center_x': 0.5, 'center_y': 0.11},
-            size_hint=(0.5, 0.5),
         )
         layout.add_widget(back_button)
         
