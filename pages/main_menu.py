@@ -22,29 +22,31 @@ class ImageWithBorder(Image):
 class MainMenuScreen(Screen):
     def __init__(self, app, **kwargs):
         super(MainMenuScreen, self).__init__(**kwargs)
+        self.app = app
         
         layout = FloatLayout()
-
-        background = Image(source="public/img/v2/home_screen/bg.png", 
-                   size_hint=(1, 1), 
-                   pos_hint={'center_x': 0.5, 
-                             'center_y': 0.5})
-        layout.add_widget(background)
         
-        info = Image(source="public/img/v2/home_screen/info.png", 
-                     pos_hint={'center_x': 0.5, 
-                               'center_y': 0.5})
-        layout.add_widget(info)
+        self.background = Image(source="public/img/v2/home_screen/bg.png", 
+                    pos_hint={'center_x': 0.5, 
+                             'center_y': 0.5},
+                    allow_stretch=True,
+                    keep_ratio=True)
+        layout.add_widget(self.background)
+        
+        self.info = Image(source="public/img/v2/home_screen/info.png", 
+                    pos_hint={'center_x': 0.5, 
+                            'center_y': 0.5},
+                    allow_stretch=True,
+                    keep_ratio=True)
+        layout.add_widget(self.info)
 
-        button_play = ButtonPlaying(
+        self.button_play = ButtonPlaying(
             app=app,
-            size_original=250,
+            size_original=280,
             source="public/img/v2/button/play.png",
             pos_hint={'center_x': 0.5, 
                       'center_y': 0.11},
         )
-        layout.add_widget(button_play)
-    
-        self.add_widget(layout)
+        layout.add_widget(self.button_play)
         
-        self.app = app
+        self.add_widget(layout)

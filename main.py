@@ -1,9 +1,8 @@
 import sys
-
 from kivy.app import App
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
-from kivy.uix.screenmanager import ScreenManager, FadeTransition, RiseInTransition, SwapTransition
+from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from kivy.core.text import LabelBase
 
 from pages.main_menu import MainMenuScreen
@@ -21,18 +20,18 @@ class MyApp(App):
         self.title = "Nada Petualang Cilik"
         self.icon = "public/img/icon.png"
         
-        # self.background_sound = SoundLoader.load("public/sound/bg1.mp3")
-        # if self.background_sound:
-        #     self.background_sound.loop = True
-        #     self.background_sound.volume = 0.5
-        #     self.background_sound.play()
-      
+        self.background_sound = SoundLoader.load("public/sound/bg1.mp3")
+        if self.background_sound:
+            self.background_sound.loop = True
+            self.background_sound.volume = 0.5
+            self.background_sound.play()
+
     def build(self):
-        self.screen_manager = ScreenManager(transition=FadeTransition(duration=0.5))
+        self.screen_manager = ScreenManager(transition=FadeTransition(duration=0.5), size_hint=(1, 1))
         
         self.screen_manager.add_widget(MainMenuScreen(name='menu', app=self))
         self.screen_manager.add_widget(ChooseGameScreen(name='choice', app=self))
-        
+            
         return self.screen_manager
 
     def back_screen(self):
@@ -40,8 +39,10 @@ class MyApp(App):
     
     def change_screen(self, screen_name):
         self.screen_manager.current = screen_name
-
-
+    
+    def on_key(self, *args):
+        print(self.size())
+    
 if __name__ == "__main__":
     try:
         MyApp().run()
