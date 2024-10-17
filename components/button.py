@@ -4,6 +4,7 @@ from kivy.core.audio import SoundLoader
 from kivy.animation import Animation
 from kivy.clock import Clock
 from kivy.uix.image import Image
+from kivy.core.window import Window
 
 class OvalButton(Button):
     def __init__(self, click_sound, **kwargs):
@@ -31,19 +32,20 @@ class BackButton(Image):
         self.app = app
         self.destination = destination  
 
-        original_width = self.texture_size[0]
-        original_height = self.texture_size[1]
-        target_width = size_original
-
-        new_height = ((target_width / original_width) * original_height)
-        self.original_size = (target_width, (new_height // 1))
-        
-        self.size = self.original_size
-        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)
         self.size_hint = (None, None)
+        self._create_size(size_original)
 
         self.click_sound = SoundLoader.load('public/sound/click.mp3')
 
+    def _create_size(self, size_original):
+        original_width = self.texture_size[0]
+        original_height = self.texture_size[1]
+        target_width = size_original
+        new_height = ((target_width / original_width) * original_height)
+        self.original_size = (target_width, (new_height // 1))
+        self.size = self.original_size
+        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)
+        
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             if self.click_sound:
@@ -74,20 +76,20 @@ class ButtonPlaying(Image):
         super(ButtonPlaying, self).__init__(**kwargs)
         self.app = app
 
+        self.size_hint = (None, None)
+        self._create_size(size_original)
+
+        self.click_sound = SoundLoader.load('public/sound/click.mp3')
+        
+    def _create_size(self, size_original):
         original_width = self.texture_size[0]
         original_height = self.texture_size[1]
         target_width = size_original
-
         new_height = ((target_width / original_width) * original_height)
-        self.size = (target_width, new_height) 
         self.original_size = (target_width, (new_height // 1))
-        
         self.size = self.original_size
-        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)
-        self.size_hint = (None, None)
-
-        self.click_sound = SoundLoader.load('public/sound/click.mp3')
-
+        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)    
+    
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             if self.click_sound:
@@ -109,3 +111,4 @@ class ButtonPlaying(Image):
 
     def change_screen_after_delay(self, dt):
         self.app.change_screen('choice')
+        

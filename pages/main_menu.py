@@ -46,6 +46,8 @@ class MainMenuScreen(Screen):
             source="public/img/v2/button/play.png",
             pos_hint={'center_x': 0.5, 
                       'center_y': 0.11},
+            allow_stretch=True,
+            keep_ratio=True
         )
         layout.add_widget(self.button_play)
         
