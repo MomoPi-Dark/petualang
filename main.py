@@ -32,8 +32,6 @@ class MyApp(App):
         self.screen_manager.add_widget(MainMenuScreen(name='menu', app=self))
         self.screen_manager.add_widget(ChooseGameScreen(name='choice', app=self))
         
-        print(self.screen_manager.screen_names, self.screen_manager.get_root_window())
-            
         return self.screen_manager
 
     def back_screen(self):
