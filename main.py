@@ -31,6 +31,8 @@ class MyApp(App):
         
         self.screen_manager.add_widget(MainMenuScreen(name='menu', app=self))
         self.screen_manager.add_widget(ChooseGameScreen(name='choice', app=self))
+        
+        print(self.screen_manager.screen_names, self.screen_manager.get_root_window())
             
         return self.screen_manager
 
@@ -39,9 +41,6 @@ class MyApp(App):
     
     def change_screen(self, screen_name):
         self.screen_manager.current = screen_name
-    
-    def on_key(self, *args):
-        print(self.size())
     
 if __name__ == "__main__":
     try:

@@ -1,3 +1,4 @@
+from typing import Any
 from kivy.uix.button import Button, ButtonBehavior
 from kivy.graphics import Color, Ellipse
 from kivy.core.audio import SoundLoader
@@ -30,85 +31,74 @@ class BackButton(Image):
     def __init__(self, app, size_original, destination='previous', **kwargs):
         super(BackButton, self).__init__(**kwargs)
         self.app = app
+        
+        self.click_sound = SoundLoader.load('public/sound/click.mp3')
         self.destination = destination  
 
-        self.size_hint = (None, None)
-        self._create_size(size_original)
-
-        self.click_sound = SoundLoader.load('public/sound/click.mp3')
-
-    def _create_size(self, size_original):
-        original_width = self.texture_size[0]
-        original_height = self.texture_size[1]
-        target_width = size_original
-        new_height = ((target_width / original_width) * original_height)
-        self.original_size = (target_width, (new_height // 1))
-        self.size = self.original_size
-        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)
+        self.default_size_hint, self.clicked_size_hint, self.size_hint = _create_size(self.texture_size, size_original)
         
+        self.scale_up = Animation(size_hint=self.clicked_size_hint, duration=0.2)
+        self.scale_down = Animation(size_hint=self.default_size_hint, duration=0.2)
+        
+        self.scale_down.bind(on_complete=lambda *args: self.change_screen_after_delay())
+
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
-            if self.click_sound:
-                self.click_sound.play()
-
-            scale_up = Animation(size=self.increased_size, duration=0.2)
-            scale_up.start(self)
-
-            Clock.schedule_once(self.change_screen_after_delay, 0.3)
-
+        if self.click_sound:
+            self.click_sound.play()
+        self.scale_up.start(self)
+            
         return super(BackButton, self).on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        if self.collide_point(*touch.pos):
-            scale_down = Animation(size=self.original_size, duration=0.2)
-            scale_down.start(self)
-        
+        self.scale_down.start(self)
         return super(BackButton, self).on_touch_up(touch)
 
-    def change_screen_after_delay(self, dt):
+    def change_screen_after_delay(self):
         if self.destination == 'previous':
             self.app.back_screen() 
         else:
             self.app.change_screen(self.destination)
-        
+
 class ButtonPlaying(Image):
     def __init__(self, app, size_original, **kwargs):
         super(ButtonPlaying, self).__init__(**kwargs)
         self.app = app
 
-        self.size_hint = (None, None)
-        self._create_size(size_original)
-
+        self.default_size_hint, self.clicked_size_hint, self.size_hint = _create_size(self.texture_size, size_original)
+        
         self.click_sound = SoundLoader.load('public/sound/click.mp3')
         
-    def _create_size(self, size_original):
-        original_width = self.texture_size[0]
-        original_height = self.texture_size[1]
-        target_width = size_original
-        new_height = ((target_width / original_width) * original_height)
-        self.original_size = (target_width, (new_height // 1))
-        self.size = self.original_size
-        self.increased_size = (self.original_size[0] * 2.0, self.original_size[1] * 2.0)    
-    
+        self.scale_up = Animation(size_hint=self.clicked_size_hint, duration=0.2)
+        self.scale_down = Animation(size_hint=self.default_size_hint, duration=0.2)
+        
+        self.scale_down.bind(on_complete=lambda *args: self.change_screen_after_delay())
+
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
-            if self.click_sound:
-                self.click_sound.play()
-
-            scale_up = Animation(size=self.increased_size, duration=0.2)
-            scale_up.start(self)
-
-            Clock.schedule_once(self.change_screen_after_delay, 0.3)
-
+        if self.click_sound:
+            self.click_sound.play()
+        self.scale_up.start(self)
+            
         return super(ButtonPlaying, self).on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        if self.collide_point(*touch.pos):
-            scale_down = Animation(size=self.original_size, duration=0.2)
-            scale_down.start(self)
-        
+        self.scale_down.start(self)
         return super(ButtonPlaying, self).on_touch_up(touch)
 
-    def change_screen_after_delay(self, dt):
+    def change_screen_after_delay(self):
         self.app.change_screen('choice')
         
+def _create_size(texture_size: Any | list[int], size_original):
+        target_width = size_original
+        original_width = texture_size[0]
+        original_height = texture_size[1]
+        new_height = (target_width / original_width) * original_height
+        
+        window_width = Window.size[0]
+        window_height = Window.size[1]
+        
+        default_size_hint = (target_width / window_width, new_height / window_height)
+        size_hint = default_size_hint
+        
+        clicked_size_hint = (default_size_hint[0] + 0.12, default_size_hint[1] + 0.12) 
+        
+        return default_size_hint, clicked_size_hint, size_hint  
