@@ -5,8 +5,10 @@ from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from kivy.core.text import LabelBase
 
+from pages.level.daerah.main import LevelDaerah
+from pages.level.kemerdekaan.main import LevelKemerdekaan
 from pages.main_menu import MainMenuScreen
-from pages.select_level_menu import ChooseGameScreen
+from pages.level.select_level_menu import ChooseGameScreen
 
 Window.size = (480, 800)
 
@@ -29,8 +31,23 @@ class MyApp(App):
     def build(self):
         self.screen_manager = ScreenManager(transition=FadeTransition(duration=0.5), size_hint=(1, 1))
         
+        # Main menu
         self.screen_manager.add_widget(MainMenuScreen(name='menu', app=self))
-        self.screen_manager.add_widget(ChooseGameScreen(name='choice', app=self))
+        self.screen_manager.add_widget(ChooseGameScreen(name='choice_menu', app=self))
+        
+        # Level Select
+        
+        # Level Select kemerdakaan
+        self.screen_manager.add_widget(LevelKemerdekaan(name='lagu_kemerdekaan', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl1', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl2', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl3', app=self))
+        
+        # Level Select lagu daerah
+        self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl1', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl2', app=self))
+        # self.screen_manager.add_widget(LevelDaerah(name='lagu_daerah_lvl3', app=self))
         
         return self.screen_manager
 
@@ -45,3 +62,5 @@ if __name__ == "__main__":
         MyApp().run()
     except KeyboardInterrupt:
         sys.exit(0)
+
+# Create by team 8 #
