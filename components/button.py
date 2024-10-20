@@ -7,7 +7,7 @@ from kivy.core.window import Window
 from kivy.graphics import Color, Line
 
 class CustomButton(Image):
-    def __init__(self, app, size_original, destination="", show_border=True, **kwargs):
+    def __init__(self, app, size_original, destination="", sound_clicked="public/sound/click.mp3", show_border=True, **kwargs):
         super(CustomButton, self).__init__(**kwargs)
         self.app = app
         self.destination = destination
@@ -15,7 +15,7 @@ class CustomButton(Image):
 
         self.default_size_hint, self.clicked_size_hint, self.size_hint = Create_size(self.texture_size, size_original)
 
-        self.click_sound = SoundLoader.load('public/sound/click.mp3')
+        self.click_sound = SoundLoader.load(sound_clicked)
         if self.click_sound:
             self.click_sound.bind(on_stop=self.change_screen_after_delay)
 
@@ -51,9 +51,9 @@ class CustomButton(Image):
         self.scale_up.stop(self)
         self.scale_down.stop(self)
 
-        Clock.schedule_once(self._delayed_screen_change, 0.2)
+        self._delayed_screen_change()
 
-    def _delayed_screen_change(self, dt):
+    def _delayed_screen_change(self):
         if self.destination == "":
             return
 
