@@ -11,14 +11,15 @@ class MainMenuScreen(Screen):
         
         layout = FloatLayout()
 
-        background = Image(source="public/img/v2/bg1.png", 
-                   size_hint=(1, 1), 
+        background = Image(source="assets/img/bg1.png", 
+                    size_hint=(1, 1), 
                     allow_stretch=True,
-                   pos_hint={'center_x': 0.5, 
+                    keep_ratio=True,
+                    pos_hint={'center_x': 0.5, 
                              'center_y': 0.5})
         layout.add_widget(background)
         
-        info = Image(source="public/img/v2/home_screen/info.png", 
+        info = Image(source="assets/img/home_screen/info.png", 
                      allow_stretch=True,
                      pos_hint={'center_x': 0.5, 
                                'center_y': 0.5})
@@ -28,7 +29,7 @@ class MainMenuScreen(Screen):
             app=app,
             size_original=280,
             destination="choice_menu",
-            source="public/img/v2/button/play.png",
+            source="assets/img/button/play.png",
             pos_hint={'center_x': 0.5, 
                       'center_y': 0.11},
         )

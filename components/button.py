@@ -5,21 +5,46 @@ from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivy.graphics import Line
 
+class CustomImage(Image):
+    def __init__(self, size_original, added_clicked_scale = 0.1, **kwargs):
+        super(CustomImage, self).__init__(**kwargs)
+        
+        self.default_size_hint, self.clicked_size_hint, self.size_hint = self.create_size(size_original, added_clicked_scale)
+
+    def create_size(self, size_original, added_clicked_scale=0.1):
+        original_width = self.texture_size[0]
+        original_height = self.texture_size[1]
+
+        target_width = size_original
+        new_height = (target_width / original_width) * original_height
+
+        window_width = Window.size[0]
+        window_height = Window.size[1]
+
+        default_size_hint = (target_width / window_width, new_height / window_height)
+        clicked_size_hint = (default_size_hint[0] + added_clicked_scale, default_size_hint[1] + added_clicked_scale)
+
+        default_hint = default_size_hint
+
+        return default_size_hint, clicked_size_hint, default_hint
+
 class CustomButton(Image):
-    def __init__(self, app, size_original, destination="", sound_clicked="public/sound/click.mp3", show_border=False, **kwargs):
+    def __init__(self, app, size_original, destination="", sound_clicked="assets/sound/click.mp3", show_border=False, added_clicked_scale = 0.1, **kwargs):
         super(CustomButton, self).__init__(**kwargs)
         self.app = app
         self.destination = destination
         self.show_border = show_border
 
-        self.default_size_hint, self.clicked_size_hint, self.size_hint = self.create_size(size_original)
+        self.default_size_hint, self.clicked_size_hint, self.size_hint = self.create_size(size_original, added_clicked_scale)
 
         self.click_sound = SoundLoader.load(sound_clicked)
         if self.click_sound:
-            self.click_sound.bind(on_stop=self.change_screen_after_delay)
+            self.click_sound.bind(on_stop=self._play_animation_and_change_screen)
 
         self.scale_up = Animation(size_hint=self.clicked_size_hint, duration=0.2)
         self.scale_down = Animation(size_hint=self.default_size_hint, duration=0.2)
+
+        self.scale_down.bind(on_complete=self._delayed_screen_change)
 
         if self.show_border:
             with self.canvas.before:
@@ -46,13 +71,10 @@ class CustomButton(Image):
 
         return super(CustomButton, self).on_touch_up(touch)
 
-    def change_screen_after_delay(self, *args):
-        self.scale_up.stop(self)
-        self.scale_down.stop(self)
+    def _play_animation_and_change_screen(self, *args):
+        self.scale_down.start(self)
 
-        self._delayed_screen_change()
-
-    def _delayed_screen_change(self):
+    def _delayed_screen_change(self, *args):
         if self.destination == "":
             return
 
@@ -61,7 +83,8 @@ class CustomButton(Image):
         else:
             self.app.change_screen(self.destination)
 
-    def create_size(self, size_original):
+
+    def create_size(self, size_original, added_clicked_scale=0.1):
         original_width = self.texture_size[0]
         original_height = self.texture_size[1]
 
@@ -72,7 +95,7 @@ class CustomButton(Image):
         window_height = Window.size[1]
 
         default_size_hint = (target_width / window_width, new_height / window_height)
-        clicked_size_hint = (default_size_hint[0] + 0.1, default_size_hint[1] + 0.1)
+        clicked_size_hint = (default_size_hint[0] + added_clicked_scale, default_size_hint[1] + added_clicked_scale)
 
         default_hint = default_size_hint
 

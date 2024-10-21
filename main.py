@@ -13,21 +13,21 @@ from pages.level.select_level_menu import ChooseGameScreen
 
 Window.size = (480, 800)
 
-LabelBase.register(name='lazy_dog', fn_regular='public/font/lazy_dog.ttf')
-LabelBase.register(name='satoshi', fn_regular='public/font/satoshi.ttf')
-LabelBase.register(name='more_sugar', fn_regular='public/font/more_sugar.ttf')
+LabelBase.register(name='lazy_dog', fn_regular='assets/font/lazy_dog.ttf')
+LabelBase.register(name='satoshi', fn_regular='assets/font/satoshi.ttf')
+LabelBase.register(name='more_sugar', fn_regular='assets/font/more_sugar.ttf')
 
 class MyApp(App):
     def __init__(self, **kwargs):
         super(MyApp, self).__init__(**kwargs)
         self.title = "Nada Petualang Cilik"
-        self.icon = "public/img/icon.png"
+        self.icon = "assets/img/icon.png"
         
-        self.background_sound = SoundLoader.load("public/sound/bg1.mp3")
-        if self.background_sound:
-            self.background_sound.loop = True
-            self.background_sound.volume = 0.5
-            self.background_sound.play()
+        # self.background_sound = SoundLoader.load("assets/sound/bg1.mp3")
+        # if self.background_sound:
+        #     self.background_sound.loop = True
+        #     self.background_sound.volume = 0.5
+        #     self.background_sound.play()
 
     def build(self):
         self.screen_manager = ScreenManager(transition=FadeTransition(duration=0.5), size_hint=(1, 1))

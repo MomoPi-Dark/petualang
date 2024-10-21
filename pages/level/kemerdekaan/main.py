@@ -2,7 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
 
-from components.button import CustomButton
+from components.button import CustomButton, CustomImage
 
 class LevelKemerdekaan(Screen):
     def __init__(self, app, **kwargs):
@@ -11,7 +11,7 @@ class LevelKemerdekaan(Screen):
         
         layout = FloatLayout()
         
-        background = Image(source="public/img/v2/home_screen/bg.png", 
+        background = Image(source="assets/img/home_screen/bg.png", 
                    size_hint=(1, 1), 
                    pos_hint={'center_x': 0.5, 
                              'center_y': 0.5})
@@ -19,14 +19,56 @@ class LevelKemerdekaan(Screen):
         
         back_button = CustomButton(
             app=app,
-            size_original=280,
+            size_original=60,
+            added_clicked_scale=0.02,
             destination="choice_menu",
-            source="public/img/v2/button/back.png",
-            pos_hint={'center_x': 0.5, 'center_y': 0.11},
+            source="assets/img/button/arrow_3.png",
+            pos_hint={"x": 0.83, "top": 0.98},
             allow_stretch=True,
             keep_ratio=True
         )
         layout.add_widget(back_button)
         
-        self.add_widget(layout)
+        button_lvl_1 = CustomButton(
+            app=app,
+            size_original=280,
+            added_clicked_scale=0.02,
+            source="assets/img/level/kebangsaan/level_1.png",
+            pos_hint={"x": 0.38, "top": 0.83},
+            allow_stretch=True,
+            keep_ratio=True
+        )
+        layout.add_widget(button_lvl_1)
         
+        button_lvl_2 = CustomButton(
+            app=app,
+            size_original=280,
+            added_clicked_scale=0.02,
+            source="assets/img/level/kebangsaan/level_2.png",
+            pos_hint={"x": 0.08, "top": 0.60},
+            allow_stretch=True,
+            keep_ratio=True
+        )
+        layout.add_widget(button_lvl_2)
+        
+        button_lvl_3 = CustomButton(
+            app=app,
+            size_original=280,
+            added_clicked_scale=0.02,
+            source="assets/img/level/kebangsaan/level_3.png",
+            pos_hint={"x": 0.38, "top": 0.35},
+            allow_stretch=True,
+            keep_ratio=True
+        )
+        layout.add_widget(button_lvl_3)
+        
+        button_icon = CustomImage(
+            added_clicked_scale=0.02,
+            size_original=150,
+            source="assets/img/level/kebangsaan/icon.png",
+            allow_stretch=True,
+            keep_ratio=True,
+        )
+        layout.add_widget(button_icon)
+        
+        self.add_widget(layout)
