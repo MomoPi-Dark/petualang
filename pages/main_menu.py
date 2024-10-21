@@ -11,13 +11,15 @@ class MainMenuScreen(Screen):
         
         layout = FloatLayout()
 
-        background = Image(source="public/img/v2/home_screen/bg.png", 
+        background = Image(source="public/img/v2/bg1.png", 
                    size_hint=(1, 1), 
+                    allow_stretch=True,
                    pos_hint={'center_x': 0.5, 
                              'center_y': 0.5})
         layout.add_widget(background)
         
         info = Image(source="public/img/v2/home_screen/info.png", 
+                     allow_stretch=True,
                      pos_hint={'center_x': 0.5, 
                                'center_y': 0.5})
         layout.add_widget(info)

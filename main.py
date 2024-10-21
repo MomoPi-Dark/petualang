@@ -1,4 +1,5 @@
 import sys
+
 from kivy.app import App
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
@@ -62,5 +63,3 @@ if __name__ == "__main__":
         MyApp().run()
     except KeyboardInterrupt:
         sys.exit(0)
-
-# Create by team 8 #

@@ -12,11 +12,12 @@ class ChooseIcon(FloatLayout):
         self.app = app
         
         centerY = 0.40
+        color = (213/255, 77/255, 55/255, 1)
 
         lagu_daerah_label = Label(
             text="Lagu\nDaerah",
             font_name="more_sugar",
-            color=(213/255, 77/255, 55/255, 1), 
+            color=color, 
             font_size=30,
             pos_hint={'center_x': 0.25, 'center_y': 0.60},
             halign='center',
@@ -38,7 +39,7 @@ class ChooseIcon(FloatLayout):
         lagu_nasional_label = Label(
             text="Lagu\nKemerdekaan",
             font_name="more_sugar",
-            color=(213/255, 77/255, 55/255, 1),
+            color=color,
             font_size=30,
             pos_hint={'center_x': 0.75, 'center_y': 0.60},
             halign='center',
@@ -64,7 +65,7 @@ class ChooseGameScreen(Screen):
         
         layout = FloatLayout()
         
-        background = Image(source="public/img/v2/choice_menu_screen/bg1.png",
+        background = Image(source="public/img/v2/bg1.png",
                             allow_stretch=True,
                             keep_ratio=True)
         layout.add_widget(background)
