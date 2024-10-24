@@ -27,11 +27,11 @@ class MainMenuScreen(Screen):
 
         button_play = CustomButton(
             app=app,
-            size_original=280,
+            size_original=290,
             destination="choice_menu",
             source="assets/img/button/play.png",
             pos_hint={'center_x': 0.5, 
-                      'center_y': 0.11},
+                      'center_y': 0.14},
         )
         layout.add_widget(button_play)
     

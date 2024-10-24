@@ -28,7 +28,7 @@ Config.set('graphics', 'scroll_thumb_image', 'assets/img/icons/heart.png')
 class MyApp(App):
     def __init__(self, **kwargs):
         super(MyApp, self).__init__(**kwargs)
-        self.title = "Nada Petualang Cilik"
+        self.title = "Irama Cilik"
         self.icon = "assets/img/icon.png"
         
         self.background_sound = SoundLoader.load("assets/sfx/bgm.mp3")
