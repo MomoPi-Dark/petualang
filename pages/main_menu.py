@@ -11,7 +11,7 @@ class MainMenuScreen(Screen):
         
         layout = FloatLayout()
 
-        background = Image(source="assets/img/bg1.png", 
+        background = Image(source="assets/img/bg.png", 
                     size_hint=(1, 1), 
                     allow_stretch=True,
                     keep_ratio=True,

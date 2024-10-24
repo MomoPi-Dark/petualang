@@ -10,10 +10,10 @@ class ChooseIcon(FloatLayout):
     def __init__(self, app, **kwargs):
         super(ChooseIcon, self).__init__(**kwargs)
         self.app = app
-        
+
         center_y = 0.35
         label_center_y = center_y + 0.20
-        
+
         color = (213/255, 77/255, 55/255, 1)
 
         lagu_daerah_label = Label(
@@ -67,7 +67,7 @@ class ChooseGameScreen(Screen):
         
         layout = FloatLayout()
         
-        background = Image(source="assets/img/bg1.png",
+        background = Image(source="assets/img/bg.png",
                             allow_stretch=True,
                             keep_ratio=True)
         layout.add_widget(background)
